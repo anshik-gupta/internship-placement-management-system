@@ -4,12 +4,13 @@ const path = require("path");
 const db = require("./config/db");
 
 //user modules
+const homeRouter = require("./routes/homeRouter");
 const userRouter = require("./routes/userRouter");
 const companyRouter = require("./routes/companyRouter");
 
 const app= express();
 
-app.use(express.static(path.join(__dirname, "../public")));
+app.use("/", homeRouter);
 
 app.use("/user", userRouter);
 app.use("/company", companyRouter)
