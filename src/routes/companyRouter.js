@@ -3,7 +3,8 @@ const express = require("express");
 const companyRouter = express.Router();
 
 const companyController = require("../controllers/companyController");
+const authMiddleware = require("../middleware/authMiddleware");
 
-companyRouter.get("/", companyController);
+companyRouter.get("/", authMiddleware("company"), companyController);
 
 module.exports = companyRouter;

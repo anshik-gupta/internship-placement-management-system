@@ -3,8 +3,18 @@ const bcrypt = require("bcrypt");
 
 const register = async(name, email, role, password) => {
 
-  const hashPassword = await bcrypt.hash(password, 10);
-  db.query("INSERT INTO users (name, email, role, password) VALUES (?, ?, ?, ?)", [name, email, role, hashPassword]);
+    const hashPassword = await bcrypt.hash(password, 10);
+
+    return new Promise((resolve, reject)=>{
+        
+        db.query("INSERT INTO users (name, email, role, password) VALUES (?, ?, ?, ?)",[name, email, role, hashPassword], (error, result)=>{
+            if(error){
+                reject(error);
+                return;
+            }
+            resolve();
+        });
+    });   
 };
 
 const login = async (email, password) => {
